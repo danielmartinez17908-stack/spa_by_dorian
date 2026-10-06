@@ -61,6 +61,19 @@
     .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
     .d5 { transition-delay: 0.5s; } .d6 { transition-delay: 0.6s; }
 
+    #intro { position: fixed; inset: 0; z-index: 1000; background: var(--darker); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; animation: introFail 0s 5s forwards; overflow: hidden; cursor: pointer; }
+    @keyframes introFail { to { visibility: hidden; opacity: 0; } }
+    #intro::before { content: ''; position: absolute; left: 50%; top: 46%; width: min(120vw, 900px); aspect-ratio: 1; transform: translate(-50%, -50%); background: radial-gradient(circle, rgba(196,163,90,0.16) 0%, rgba(196,163,90,0.04) 40%, transparent 68%); opacity: 0; animation: introGlow 3.2s ease-out 0.2s forwards; }
+    @keyframes introGlow { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); } 60% { opacity: 1; } 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); } }
+    .intro-logo { position: relative; height: min(46vh, 340px); width: auto; mix-blend-mode: screen; }
+    .intro-line { position: relative; width: 140px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); transform-origin: center; }
+    .intro-sub { position: relative; font-size: 0.62rem; letter-spacing: 6px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+    .intro-dots { position: relative; display: flex; gap: 8px; margin-top: 6px; }
+    .intro-dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); opacity: 0.25; animation: dot 1.1s ease-in-out infinite; }
+    .intro-dots i:nth-child(2) { animation-delay: 0.18s; } .intro-dots i:nth-child(3) { animation-delay: 0.36s; }
+    @keyframes dot { 0%,100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); } }
+    body.intro-lock { overflow: hidden; }
+
     .top-bar {
       background: var(--darker); border-bottom: 1px solid rgba(196,163,90,0.08);
       padding: 9px 48px; display: flex; align-items: center; justify-content: space-between;
@@ -87,6 +100,7 @@
       transition: color 0.3s, border-color 0.3s;
     }
     .nav-links a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+    .nav-links a.menu-cta { display: none; }
     .nav-cta {
       font-size: 0.67rem; letter-spacing: 2px; text-transform: uppercase;
       color: var(--dark); background: var(--gold); padding: 11px 20px;
@@ -252,13 +266,21 @@
     @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; } }
     @media (max-width: 768px) {
       .top-bar { display: none; }
-      nav { padding: 0 20px; height: 64px; }
+      nav { padding: 0 20px; height: 64px; backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(17,17,19,0.98); }
       .nav-logo img { height: 48px; }
-      .nav-links { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(11,11,13,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 4px; z-index: 99; }
-      .nav-links.open { display: flex; }
-      .nav-links a { height: auto; padding: 14px 28px; font-size: 0.88rem; border: none; letter-spacing: 2px; }
+      .nav-links { display: flex; position: fixed; top: 0; left: 0; right: 0; bottom: 0; height: 100dvh; background: #0b0b0d; flex-direction: column; align-items: center; justify-content: center; gap: 6px; z-index: 99; opacity: 0; visibility: hidden; transition: opacity 0.35s, visibility 0.35s; padding: 80px 24px 40px; }
+      .nav-links.open { opacity: 1; visibility: visible; }
+      .nav-links a { height: auto; padding: 14px 28px; font-family: 'Playfair Display', serif; font-size: 1.6rem; text-transform: none; letter-spacing: 0.5px; color: #fff; border: none; opacity: 0; transform: translateY(14px); transition: opacity 0.4s, transform 0.4s, color 0.3s; }
+      .nav-links.open a { opacity: 1; transform: none; }
+      .nav-links.open a:nth-child(2) { transition-delay: 0.05s; } .nav-links.open a:nth-child(3) { transition-delay: 0.1s; } .nav-links.open a:nth-child(4) { transition-delay: 0.15s; } .nav-links.open a:nth-child(5) { transition-delay: 0.2s; } .nav-links.open a:nth-child(6) { transition-delay: 0.25s; }
+      .nav-links a:hover, .nav-links a:active { color: var(--gold); border: none; }
+      .nav-links a.menu-cta { display: inline-flex; margin-top: 22px; font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; background: var(--gold); color: var(--dark); padding: 18px 34px; }
       .nav-cta { display: none; }
-      .hamburger { display: block; z-index: 101; }
+      .hamburger { display: block; z-index: 101; padding: 12px 8px; }
+      .hamburger span { width: 26px; height: 2px; transition: transform 0.35s, opacity 0.25s; }
+      .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .hamburger.open span:nth-child(2) { opacity: 0; }
+      .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
       .categorias-grid { grid-template-columns: 1fr; }
       .btn-primary { width: 100%; justify-content: center; text-align: center; padding: 18px 20px; }
       .footer-grid { grid-template-columns: 1fr; gap: 28px; }
@@ -277,7 +299,14 @@
     @media (prefers-reduced-motion: reduce) { .float-social a.wa { animation: none; } .arch img { animation: none; } .reveal { opacity: 1; transform: none; transition: none; } .scroll-line { animation: none; } }
   </style>
 </head>
-<body>
+<body class="intro-lock">
+
+  <div id="intro" aria-hidden="true">
+    <img class="intro-logo" src="img/logo-dorian.webp" alt="" width="700" height="800" fetchpriority="high" />
+    <div class="intro-line"></div>
+    <div class="intro-sub">by Oniris Dorian</div>
+    <div class="intro-dots"><i></i><i></i><i></i></div>
+  </div>
 
   <div class="top-bar">
     <div class="top-bar-left">
@@ -299,9 +328,10 @@
       <a href="#incluye">Tu visita</a>
       <a href="#testimonials">Testimonios</a>
       <a href="#reservar">Contacto</a>
+      <a href="https://wa.me/573134590885?text=Hola%20Dorian%20Spa%20%F0%9F%8C%BF%20Me%20gustar%C3%ADa%20agendar%20una%20cita." class="menu-cta" target="_blank" rel="noopener">Agenda por WhatsApp</a>
     </div>
     <a href="https://wa.me/573134590885?text=Hola%20Dorian%20Spa%20%F0%9F%8C%BF%20Me%20gustar%C3%ADa%20agendar%20una%20cita." class="nav-cta" target="_blank" rel="noopener">Agenda tu cita</a>
-    <button class="hamburger" id="hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
 
   <section id="hero">
@@ -656,18 +686,48 @@
 
     const ham = document.getElementById('hamburger');
     const links = document.getElementById('navLinks');
-    ham.addEventListener('click', () => links.classList.toggle('open'));
-    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+    function setMenu(open) {
+      links.classList.toggle('open', open); ham.classList.toggle('open', open);
+      ham.setAttribute('aria-expanded', open); document.body.style.overflow = open ? 'hidden' : '';
+    }
+    ham.addEventListener('click', () => setMenu(!links.classList.contains('open')));
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+    window.addEventListener('resize', () => { if (innerWidth > 768) setMenu(false); });
+
+    const intro = document.getElementById('intro');
+    function endIntro() { document.body.classList.remove('intro-lock'); if (intro) intro.remove(); }
+    setTimeout(endIntro, 9000);
 
     if (window.gsap && !reduce) {
-      gsap.from('.hero-ring', { scale: 0.8, opacity: 0, duration: 1.8, ease: 'power3.out', stagger: 0.25, delay: 0.4 });
-      gsap.from('.hero-anim', { y: 34, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.16, delay: 0.2 });
+      intro.style.animation = 'none';
+      gsap.set('.intro-logo', { opacity: 0, scale: 0.88, filter: 'blur(14px)' });
+      gsap.set('.intro-line', { scaleX: 0 });
+      gsap.set('.intro-sub', { opacity: 0, letterSpacing: '14px' });
+      gsap.set('.intro-dots', { opacity: 0 });
+      gsap.set('.hero-anim', { y: 34, opacity: 0 });
+      gsap.set('.hero-ring', { scale: 0.8, opacity: 0 });
+
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      tl.to('.intro-logo', { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.5 })
+        .to('.intro-line', { scaleX: 1, duration: 0.9 }, '-=0.7')
+        .to('.intro-sub', { opacity: 1, letterSpacing: '6px', duration: 1 }, '-=0.6')
+        .to('.intro-dots', { opacity: 1, duration: 0.4 }, '-=0.6')
+        .to('.intro-logo', { scale: 1.05, duration: 0.9, ease: 'sine.inOut' }, '+=0.1')
+        .to('#intro', { yPercent: -100, duration: 1.1, ease: 'expo.inOut' }, '+=0.15')
+        .add(endIntro)
+        .to('.hero-ring', { scale: 1, opacity: 1, duration: 1.8, stagger: 0.25 }, '-=0.5')
+        .to('.hero-anim', { y: 0, opacity: 1, duration: 1, stagger: 0.16 }, '<0.1');
+      intro.addEventListener('click', () => tl.timeScale(4));
+
       gsap.to('.hero-ring', { rotation: 360, duration: 90, ease: 'none', repeat: -1 });
       if (window.ScrollTrigger) {
         gsap.registerPlugin(ScrollTrigger);
         gsap.to('#heroBg', { yPercent: 10, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
         gsap.to('.hero-grid', { yPercent: -10, opacity: 0.2, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'center top', end: 'bottom top', scrub: true } });
       }
+    } else {
+      endIntro();
     }
 
     (function () {
