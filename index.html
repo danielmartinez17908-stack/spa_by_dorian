@@ -237,6 +237,7 @@
 
     #reservar { background: var(--cream); padding: 110px 24px; }
     .reservar-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .reservar-inner.merged { margin-top: 84px; padding-top: 72px; border-top: 1px solid rgba(196,163,90,0.3); }
     .reservar-inner .section-sub { margin: 8px 0 38px; }
     .micro { margin-top: 22px; font-size: 0.72rem; color: var(--muted); line-height: 1.6; }
 
@@ -276,11 +277,11 @@
       .nav-links a:hover, .nav-links a:active { color: var(--gold); border: none; }
       .nav-links a.menu-cta { display: inline-flex; margin-top: 22px; font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; background: var(--gold); color: var(--dark); padding: 18px 34px; }
       .nav-cta { display: none; }
-      .hamburger { display: block; z-index: 101; padding: 12px 8px; }
-      .hamburger span { width: 26px; height: 2px; transition: transform 0.35s, opacity 0.25s; }
-      .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .hamburger { display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 101; width: 46px; height: 46px; padding: 0; background: var(--gold); border-radius: 50%; box-shadow: 0 4px 16px rgba(196,163,90,0.35); }
+      .hamburger span { width: 20px; height: 2px; margin: 3px 0; background: var(--dark); transition: transform 0.35s, opacity 0.25s; }
+      .hamburger.open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
       .hamburger.open span:nth-child(2) { opacity: 0; }
-      .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+      .hamburger.open span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
       .categorias-grid { grid-template-columns: 1fr; }
       .btn-primary { width: 100%; justify-content: center; text-align: center; padding: 18px 20px; }
       .footer-grid { grid-template-columns: 1fr; gap: 28px; }
@@ -327,7 +328,7 @@
       <a href="#bienestar">Bienestar</a>
       <a href="#incluye">Tu visita</a>
       <a href="#testimonials">Testimonios</a>
-      <a href="#reservar">Contacto</a>
+      <a href="#politicas">Contacto</a>
       <a href="https://wa.me/573134590885?text=Hola%20Dorian%20Spa%20%F0%9F%8C%BF%20Me%20gustar%C3%ADa%20agendar%20una%20cita." class="menu-cta" target="_blank" rel="noopener">Agenda por WhatsApp</a>
     </div>
     <a href="https://wa.me/573134590885?text=Hola%20Dorian%20Spa%20%F0%9F%8C%BF%20Me%20gustar%C3%ADa%20agendar%20una%20cita." class="nav-cta" target="_blank" rel="noopener">Agenda tu cita</a>
@@ -544,38 +545,6 @@
     </div>
   </section>
 
-  <section id="politicas">
-    <div class="politicas-inner">
-      <div class="section-header">
-        <p class="tag reveal">Antes de tu cita</p>
-        <span class="gold-line reveal d1"></span>
-        <h2 class="section-title reveal d2" style="color: var(--dark);">Todo lo que debes <em>saber</em></h2>
-      </div>
-      <div class="politicas-grid">
-        <div class="politica-card reveal d1">
-          <h4>¿Cuánto cuesta?</h4>
-          <p>Cada servicio se ajusta a lo que necesitas, por eso no publicamos precios. Por WhatsApp te compartimos el valor de tu sesión, sin compromiso.</p>
-        </div>
-        <div class="politica-card reveal d2">
-          <h4>Horario</h4>
-          <p>Te esperamos de 9:00 am a 6:00 pm. Escríbenos y reservamos el momento que mejor te quede.</p>
-        </div>
-        <div class="politica-card reveal d3">
-          <h4>Dónde estamos</h4>
-          <p>Calle 144 #9-89, Bogotá. Si tienes una condición médica o estás embarazada, cuéntanos tu caso antes de reservar.</p>
-        </div>
-      </div>
-      <div class="locate reveal d4">
-        <span class="locate-pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></span>
-        <div class="locate-text">
-          <span class="locate-label">Nuestra ubicación</span>
-          <strong>Calle 144 #9-89, Bogotá</strong>
-        </div>
-        <a href="https://maps.app.goo.gl/A5jp2fdoHcVKYeZh8" class="btn-locate" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Cómo llegar<span class="btn-sub">Abrir en Google Maps</span></a>
-      </div>
-    </div>
-  </section>
-
   <section id="testimonials">
     <div class="testi-inner">
       <div class="section-header">
@@ -610,10 +579,36 @@
     </div>
   </section>
 
-  <div class="divider divider-dark"><span>✦</span></div>
-
-  <section id="reservar">
-    <div class="reservar-inner">
+  <section id="politicas">
+    <div class="politicas-inner">
+      <div class="section-header">
+        <p class="tag reveal">Antes de tu cita</p>
+        <span class="gold-line reveal d1"></span>
+        <h2 class="section-title reveal d2" style="color: var(--dark);">Todo lo que debes <em>saber</em></h2>
+      </div>
+      <div class="politicas-grid">
+        <div class="politica-card reveal d1">
+          <h4>¿Cuánto cuesta?</h4>
+          <p>Cada servicio se ajusta a lo que necesitas, por eso no publicamos precios. Por WhatsApp te compartimos el valor de tu sesión, sin compromiso.</p>
+        </div>
+        <div class="politica-card reveal d2">
+          <h4>Horario</h4>
+          <p>Te esperamos de 9:00 am a 6:00 pm. Escríbenos y reservamos el momento que mejor te quede.</p>
+        </div>
+        <div class="politica-card reveal d3">
+          <h4>Dónde estamos</h4>
+          <p>Calle 144 #9-89, Bogotá. Si tienes una condición médica o estás embarazada, cuéntanos tu caso antes de reservar.</p>
+        </div>
+      </div>
+      <div class="locate reveal d4">
+        <span class="locate-pin"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></span>
+        <div class="locate-text">
+          <span class="locate-label">Nuestra ubicación</span>
+          <strong>Calle 144 #9-89, Bogotá</strong>
+        </div>
+        <a href="https://maps.app.goo.gl/A5jp2fdoHcVKYeZh8" class="btn-locate" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Cómo llegar<span class="btn-sub">Abrir en Google Maps</span></a>
+      </div>
+      <div class="reservar-inner merged">
       <p class="tag reveal">Reservas</p>
       <span class="gold-line reveal d1" style="margin: 12px auto 16px;"></span>
       <h2 class="section-title reveal d2" style="color: var(--dark);">Tu pausa empieza con <em>un mensaje</em></h2>
@@ -623,6 +618,7 @@
         Agenda tu cita por WhatsApp
       </a>
       <p class="micro reveal d5">Horario 9:00 am — 6:00 pm · Calle 144 #9-89<br>Este sitio no usa formularios ni almacena datos personales; la conversación ocurre directamente en WhatsApp. Los resultados pueden variar según cada persona.</p>
+    </div>
     </div>
   </section>
 
