@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dorian Spa Integral — by Oniris Dorian</title>
+  <meta name="description" content="Masajes, cuidado del rostro y la mirada, drenaje linfático y reflexología. Agenda tu cita por WhatsApp." />
+  <link rel="icon" href="img/logo-dorian-sm.webp" type="image/webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:   #C4A35A;
+      --dark:   #1C1C1E;
+      --cream:  #F9F4EE;
+      --wine:   #7B4F5E;
+      --white:  #FFFFFF;
+      --text:   #3A3A3A;
+      --muted:  #9A8F8F;
+      --darker: #111113;
+      --wine-dark: #130c10;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', sans-serif; color: var(--text); background: var(--darker); overflow-x: hidden; }
+
+    .tag { font-size: 0.68rem; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); display: block; }
+    .gold-line { display: block; width: 40px; height: 1px; background: var(--gold); margin: 0 auto; }
+    .section-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.2; }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .section-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; line-height: 1.7; }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-header .tag { margin-bottom: 12px; }
+    .section-header .gold-line { margin: 14px auto 16px; }
+    .section-header .section-title { margin-bottom: 10px; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--dark); background: var(--gold);
+      padding: 16px 38px; text-decoration: none; border: none; cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .btn-primary svg { flex-shrink: 0; }
+    .btn-primary::after {
+      content: ''; position: absolute; top: 0; left: -75%; width: 50%; height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+      transform: skewX(-20deg); transition: left 0.5s ease;
+    }
+    .btn-primary:hover::after { left: 130%; }
+    .btn-primary:hover { box-shadow: 0 6px 28px rgba(196,163,90,0.45); transform: translateY(-1px); }
+    .btn-lg { padding: 20px 52px; font-size: 0.85rem; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
+    .d5 { transition-delay: 0.5s; } .d6 { transition-delay: 0.6s; }
+
+    .top-bar {
+      background: var(--darker); border-bottom: 1px solid rgba(196,163,90,0.08);
+      padding: 9px 48px; display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.7rem; letter-spacing: 1px; color: rgba(255,255,255,0.3);
+    }
+    .top-bar a { color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.3s; }
+    .top-bar a:hover { color: var(--gold); }
+    .top-bar-left, .top-bar-right { display: flex; gap: 20px; }
+    .top-bar-center { font-size: 0.62rem; letter-spacing: 4px; text-transform: uppercase; color: rgba(196,163,90,0.6); }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(17,17,19,0.96); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(196,163,90,0.1);
+      padding: 0 48px; display: flex; align-items: center; justify-content: space-between; height: 72px;
+    }
+    .nav-logo { display: block; flex-shrink: 0; line-height: 0; }
+    .nav-logo img { height: 56px; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; }
+    .nav-links a {
+      font-size: 0.67rem; letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); text-decoration: none; padding: 0 16px; height: 72px;
+      display: flex; align-items: center; border-bottom: 2px solid transparent;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+    .nav-cta {
+      font-size: 0.67rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--dark); background: var(--gold); padding: 11px 20px;
+      text-decoration: none; white-space: nowrap; transition: opacity 0.3s; flex-shrink: 0;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; flex-shrink: 0; }
+    .hamburger span { display: block; width: 22px; height: 1px; background: var(--gold); margin: 5px 0; }
+
+    #hero {
+      min-height: 92vh; position: relative; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 80px 24px; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: -8% 0;
+      background:
+        radial-gradient(ellipse at 65% 35%, rgba(196,163,90,0.09) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 75%, rgba(123,79,94,0.12) 0%, transparent 55%),
+        linear-gradient(160deg, #0e0e10 0%, #1c1c1e 55%, #141416 100%);
+    }
+    .hero-texture {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C4A35A' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    #particles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .hero-grid { position: relative; z-index: 2; width: 100%; max-width: 1180px; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; }
+    .hero-content { text-align: left; }
+    .hero-photo { position: relative; width: 100%; max-width: 400px; justify-self: center; aspect-ratio: 4 / 5.2; }
+    .hero-ring { position: absolute; left: 50%; top: 50%; width: 118%; aspect-ratio: 1; transform: translate(-50%, -50%); border: 1px solid rgba(196,163,90,0.22); border-radius: 50%; pointer-events: none; }
+    .hero-ring.r2 { width: 138%; border-color: rgba(196,163,90,0.1); }
+    .arch { position: absolute; inset: 0; border-radius: 999px 999px 8px 8px; overflow: hidden; border: 1px solid rgba(196,163,90,0.5); box-shadow: 0 30px 80px rgba(0,0,0,0.55); }
+    .arch::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(17,17,19,0.45), transparent 45%); }
+    .arch img { width: 100%; height: 100%; object-fit: cover; display: block; transform-origin: 50% 60%; animation: slowzoom 18s ease-in-out infinite alternate; }
+    @keyframes slowzoom { from { transform: scale(1); } to { transform: scale(1.12); } }
+    .hero-title {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.15; color: var(--white); margin: 16px 0;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: clamp(1.05rem, 2.5vw, 1.3rem); color: rgba(255,255,255,0.65);
+      max-width: 540px; margin: 0 0 28px; line-height: 1.7;
+    }
+    .hero-badges { display: flex; align-items: center; justify-content: flex-start; gap: 28px; margin-bottom: 38px; flex-wrap: wrap; }
+    .hero-badge { display: flex; align-items: center; gap: 8px; font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+    .hero-badge .dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+    .hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; z-index: 2; }
+    .hero-scroll span { font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.22); }
+    .scroll-line { width: 1px; height: 36px; background: linear-gradient(to bottom, rgba(196,163,90,0.5), transparent); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+    .divider { display: flex; align-items: center; justify-content: center; gap: 16px; }
+    .divider::before, .divider::after { content: ''; flex: 1; max-width: 140px; height: 1px; background: var(--gold); opacity: 0.18; }
+    .divider span { color: var(--gold); font-size: 0.7rem; letter-spacing: 3px; }
+    .divider-dark { background: var(--dark); padding: 2px 48px; }
+    .divider-cream { background: var(--cream); padding: 2px 48px; }
+    .divider-wine { background: var(--wine-dark); padding: 2px 48px; }
+
+    #categorias { background: var(--cream); padding: 80px 24px; }
+    .categorias-inner { max-width: 1000px; margin: 0 auto; }
+    .categorias-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .cat-card {
+      background: var(--white); padding: 34px 22px; text-align: center; border-top: 2px solid transparent;
+      text-decoration: none; display: block; transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+    .cat-card:hover { border-top-color: var(--gold); box-shadow: 0 8px 30px rgba(0,0,0,0.09); transform: translateY(-3px); }
+    .cat-icon { font-size: 1.4rem; color: var(--gold); margin-bottom: 12px; display: block; }
+    .cat-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--dark); margin-bottom: 6px; font-weight: 700; }
+    .cat-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+    .cat-count { display: inline-block; margin-top: 12px; font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+
+    .svc-section { padding: 100px 24px; }
+    .svc-section-dark { background: var(--dark); }
+    .svc-section-light { background: var(--cream); }
+    .svc-section-wine { background: var(--wine-dark); }
+    .svc-inner { max-width: 1100px; margin: 0 auto; }
+    .svc-section-dark .section-title, .svc-section-wine .section-title { color: var(--white); }
+    .svc-section-light .section-title { color: var(--dark); }
+    .section-sub { color: var(--muted); }
+
+    .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 22px; }
+    .svc-grid.two { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 760px; margin: 0 auto; }
+    .svc-card { padding: 30px 26px; border-top: 2px solid var(--gold); transition: transform 0.3s, box-shadow 0.3s, background 0.3s; }
+    .svc-card:hover { transform: translateY(-3px); }
+    .svc-section-dark .svc-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(196,163,90,0.1); border-top: 2px solid var(--gold); }
+    .svc-section-dark .svc-card:hover { background: rgba(255,255,255,0.055); }
+    .svc-section-dark .svc-card h3 { color: var(--white); }
+    .svc-section-light .svc-card { background: var(--white); box-shadow: 0 2px 14px rgba(0,0,0,0.05); }
+    .svc-section-light .svc-card:hover { box-shadow: 0 10px 36px rgba(0,0,0,0.1); }
+    .svc-section-light .svc-card h3 { color: var(--dark); }
+    .svc-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 10px; }
+    .svc-desc { font-size: 0.86rem; line-height: 1.7; margin-bottom: 12px; color: var(--muted); }
+    .svc-ideal { font-size: 0.67rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(196,163,90,0.75); padding-top: 12px; border-top: 1px solid rgba(196,163,90,0.12); }
+    .svc-ideal strong { color: var(--gold); }
+    .svc-note { display: block; margin-top: 10px; font-size: 0.72rem; color: var(--muted); font-style: italic; }
+
+    #valoracion .cta-band { max-width: 760px; margin: 0 auto; text-align: center; }
+    #valoracion .section-sub { max-width: 560px; margin: 8px auto 36px; color: rgba(255,255,255,0.55); }
+
+    #incluye { background: var(--dark); padding: 100px 24px; text-align: center; }
+    .incluye-inner { max-width: 980px; margin: 0 auto; }
+    .incluye-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 36px; margin-top: 56px; }
+    .incluye-icon { font-size: 1.3rem; color: var(--gold); margin-bottom: 12px; display: block; line-height: 1; }
+    .incluye-item h4 { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--white); margin-bottom: 6px; }
+    .incluye-item p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    #politicas { background: var(--cream); padding: 80px 24px; }
+    .politicas-inner { max-width: 980px; margin: 0 auto; }
+    .politicas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 48px; }
+    .politica-card { background: var(--white); padding: 28px 26px; border-left: 2px solid var(--gold); }
+    .politica-card h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--dark); margin-bottom: 8px; }
+    .politica-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    #testimonials { background: var(--dark); padding: 100px 24px; }
+    .testi-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; margin-top: 56px; }
+    .testi-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(196,163,90,0.09); padding: 34px 26px; text-align: left; }
+    .testi-mark { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--gold); opacity: 0.2; line-height: 1; margin-bottom: -8px; }
+    .testi-stars { color: var(--gold); font-size: 0.65rem; margin-bottom: 12px; }
+    .testi-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: rgba(255,255,255,0.72); line-height: 1.7; margin-bottom: 16px; }
+    .testi-author { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+    .testi-service { font-size: 0.63rem; color: var(--muted); margin-top: 4px; letter-spacing: 1px; }
+
+    #reservar { background: var(--cream); padding: 110px 24px; }
+    .reservar-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .reservar-inner .section-sub { margin: 8px 0 38px; }
+    .micro { margin-top: 22px; font-size: 0.72rem; color: var(--muted); line-height: 1.6; }
+
+    footer { background: var(--darker); border-top: 1px solid rgba(196,163,90,0.1); padding: 64px 48px 36px; }
+    .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand img { width: 150px; height: auto; display: block; }
+    .footer-brand p { font-size: 0.8rem; color: rgba(255,255,255,0.35); line-height: 1.7; margin-top: 12px; max-width: 260px; }
+    .footer-social { display: flex; gap: 10px; margin-top: 18px; }
+    .social-icon { width: 34px; height: 34px; border: 1px solid rgba(196,163,90,0.2); display: flex; align-items: center; justify-content: center; color: var(--muted); text-decoration: none; transition: border-color 0.3s, color 0.3s; }
+    .social-icon:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-col h5 { font-size: 0.58rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-col a, .footer-col ul li a { font-size: 0.81rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.3s; display: block; line-height: 1.8; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-col p { font-size: 0.81rem; color: rgba(255,255,255,0.35); line-height: 1.8; }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.04); font-size: 0.68rem; color: rgba(255,255,255,0.2); flex-wrap: wrap; gap: 10px; }
+
+    @media (max-width: 900px) {
+      #hero { padding: 48px 20px 90px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+      .hero-content { text-align: center; }
+      .hero-sub { margin: 0 auto 28px; }
+      .hero-badges { justify-content: center; }
+      .hero-photo { max-width: 280px; margin-top: 8px; }
+    }
+    @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; } }
+    @media (max-width: 768px) {
+      .top-bar { display: none; }
+      nav { padding: 0 20px; height: 64px; }
+      .nav-logo img { height: 48px; }
+      .nav-links { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(11,11,13,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 4px; z-index: 99; }
+      .nav-links.open { display: flex; }
+      .nav-links a { height: auto; padding: 14px 28px; font-size: 0.88rem; border: none; letter-spacing: 2px; }
+      .nav-cta { display: none; }
+      .hamburger { display: block; z-index: 101; }
+      .categorias-grid { grid-template-columns: 1fr; }
+      .btn-primary { width: 100%; justify-content: center; text-align: center; padding: 18px 20px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      footer { padding: 48px 24px 28px; }
+      .svc-section, #testimonials, #incluye, #reservar { padding-top: 72px; padding-bottom: 72px; }
+    }
+    @media (max-width: 480px) { .svc-grid, .svc-grid.two { grid-template-columns: 1fr; } .incluye-grid { grid-template-columns: 1fr 1fr; } }
+    .float-social { position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 90; display: flex; flex-direction: column; gap: 10px; }
+    .float-social a { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--gold); background: rgba(17,17,19,0.92); border: 1px solid rgba(196,163,90,0.55); backdrop-filter: blur(8px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); transition: transform 0.3s, background 0.3s, color 0.3s; }
+    .float-social a:hover { transform: translateY(-3px) scale(1.05); background: var(--gold); color: var(--dark); }
+    .float-social a.wa { background: #25D366; border-color: #25D366; color: #fff; width: 58px; height: 58px; animation: waPulse 2.6s ease-out infinite; }
+    .float-social a.wa:hover { background: #1fb858; color: #fff; }
+    @keyframes waPulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); } 70%, 100% { box-shadow: 0 0 0 16px rgba(37,211,102,0); } }
+    @media (max-width: 768px) { .float-social { right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); } .float-social a { width: 46px; height: 46px; } .float-social a.wa { width: 54px; height: 54px; } }
+    @media (prefers-reduced-motion: reduce) { .float-social a.wa { animation: none; } .arch img { animation: none; } .reveal { opacity: 1; transform: none; transition: none; } .scroll-line { animation: none; } }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <span>Horario 9:00 am — 6:00 pm</span>
+      <a href="https://wa.me/573134590885" target="_blank" rel="noopener">+57 313 459 0885</a>
+    </div>
+    <div class="top-bar-center">Dorian Spa Integral &nbsp;·&nbsp; by Oniris Dorian</div>
+    <div class="top-bar-right">
+      <span>Calle 144 #9-89</span>
+    </div>
+  </div>
+
+  <nav>
+    <a href="#hero" class="nav-logo" aria-label="Dorian Spa Integral"><img src="img/logo-dorian-sm.webp" alt="Dorian Spa Integral by Oniris Dorian" width="49" height="56" /></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#masajes">Masajes</a>
+      <a href="#rostro">Rostro y mirada</a>
+      <a href="#bienestar">Bienestar</a>
+      <a href="#incluye">Tu visita</a>
+      <a href="#testimonials">Testimonios</a>
+      <a href="#reservar">Contacto</a>
+    </div>
+    <a href="https://wa.me/573134590885?text=Hola%20Dorian%20Spa%20%F0%9F%8C%BF%20Me%20gustar%C3%ADa%20agendar%20una%20cita." class="nav-cta" target="_blank" rel="noopener">Agenda tu cita</a>
+    <button class="hamburger" id="hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-texture"></div>
+    <canvas id="particles"></canvas>
+    <div class="hero-grid">
+    <div class="hero-content">
+      <p class="tag hero-anim" style="margin-bottom: 4px;">✦ &nbsp;Spa integral · by Oniris Dorian&nbsp; ✦</p>
+      <h1 class="hero-title hero-anim">¿Cuándo fue la última vez que tu cuerpo <em>descansó de verdad?</em></h1>
+      <p class="hero-sub hero-anim">Masajes, cuidado del rostro y la mirada, y terapias de bienestar. Todo en un solo lugar.</p>
+      <div class="hero-badges hero-anim">
+        <span class="hero-badge"><span class="dot"></span>11 servicios</span>
+        <span class="hero-badge"><span class="dot"></span>Atención personalizada</span>
+        <span class="hero-badge"><span class="dot"></span>Ambiente íntimo, sin prisa</span>
+      </div>
+      <a href="https://wa.me/573134590885?text=Hola%20Dorian%20Spa%20%F0%9F%8C%BF%20Me%20gustar%C3%ADa%20agendar%20una%20cita." class="btn-primary hero-anim" target="_blank" rel="noopener">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Agenda tu cita por WhatsApp
+      </a>
+    </div>
+    <div class="hero-photo hero-anim">
+      <span class="hero-ring"></span><span class="hero-ring r2"></span>
+      <div class="arch"><img id="heroImg" src="img/espacio.webp" alt="Cabina de masajes de Dorian Spa con velas y pétalos de rosa" width="879" height="1100" fetchpriority="high" /></div>
+    </div>
+    </div>
+    <div class="hero-scroll"><span>Explorar</span><div class="scroll-line"></div></div>
+  </section>
+
+  <section id="categorias">
+    <div class="categorias-inner">
+      <div class="section-header">
+        <p class="tag reveal">¿Qué buscas hoy?</p>
+        <span class="gold-line reveal d1"></span>
+        <h2 class="section-title reveal d2" style="color: var(--dark);">Nuestros <em>servicios</em></h2>
+        <p class="section-sub reveal d3">Tres categorías. Una sola experiencia: sentirte mejor.</p>
+      </div>
+      <div class="categorias-grid">
+        <a href="#masajes" class="cat-card reveal d1">
+          <span class="cat-icon">≈</span>
+          <h3>Masajes</h3>
+          <p>Relajación, reductor y deportivo</p>
+          <span class="cat-count">3 servicios</span>
+        </a>
+        <a href="#rostro" class="cat-card reveal d2">
+          <span class="cat-icon">✧</span>
+          <h3>Rostro y mirada</h3>
+          <p>Limpieza facial, cejas, labios y pestañas</p>
+          <span class="cat-count">6 servicios</span>
+        </a>
+        <a href="#bienestar" class="cat-card reveal d3">
+          <span class="cat-icon">⊙</span>
+          <h3>Bienestar</h3>
+          <p>Drenaje linfático y reflexología</p>
+          <span class="cat-count">2 servicios</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="masajes" class="svc-section svc-section-dark">
+    <div class="svc-inner">
+      <div class="section-header">
+        <p class="tag reveal">Masajes corporales</p>
+        <span class="gold-line reveal d1"></span>
+        <h2 class="section-title reveal d2">Libera la <em>tensión</em></h2>
+        <p class="section-sub reveal d3">Para ella y para él. Desde la relajación profunda hasta el trabajo muscular.</p>
+      </div>
+      <div class="svc-grid">
+        <div class="svc-card reveal d1">
+          <h3>Masaje de relajación</h3>
+          <p class="svc-desc">Movimientos lentos y envolventes que sueltan la tensión del día y te llevan a un descanso profundo. El punto de partida ideal para desconectarte.</p>
+          <p class="svc-ideal"><strong>Ideal para:</strong> estrés, mal descanso, primera visita al spa</p>
+        </div>
+        <div class="svc-card reveal d2">
+          <h3>Masaje reductor</h3>
+          <p class="svc-desc">Maniobras dirigidas y vigorosas sobre abdomen, cintura, piernas y glúteos para acompañar tu cuidado corporal. Rinde más junto a hábitos saludables.</p>
+          <p class="svc-ideal"><strong>Ideal para:</strong> cuidar tu silueta y sentirte más ligera(o)</p>
+        </div>
+        <div class="svc-card reveal d3">
+          <h3>Masaje deportivo</h3>
+          <p class="svc-desc">Presión profunda y estiramientos asistidos para preparar el músculo antes del esfuerzo o ayudarlo a recuperarse después.</p>
+          <p class="svc-ideal"><strong>Ideal para:</strong> deportistas, trabajo físico, sobrecarga muscular</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider divider-dark"><span>✦</span></div>
+
+  <section id="rostro" class="svc-section svc-section-light">
+    <div class="svc-inner">
+      <div class="section-header">
+        <p class="tag reveal">Rostro y mirada</p>
+        <span class="gold-line reveal d1"></span>
+        <h2 class="section-title reveal d2">Realza lo que <em>ya eres</em></h2>
+        <p class="section-sub reveal d3">Cuidado del rostro y la mirada, con resultados naturales.</p>
+      </div>
+      <div class="svc-grid">
+        <div class="svc-card reveal d1">
+          <h3>Limpieza facial</h3>
+          <p class="svc-desc">Limpieza profunda adaptada a tu tipo de piel: retiro de impurezas, exfoliación suave y mascarilla. Tu piel queda fresca, limpia y luminosa.</p>
+          <p class="svc-ideal"><strong>Ideal para:</strong> piel opaca, impurezas, antes de un evento</p>
+        </div>
+        <div class="svc-card reveal d2">
+          <h3>Diseño de cejas</h3>
+          <p class="svc-desc">Estudio de tu rostro para dar a la ceja la forma que mejor te favorece, con un trazo preciso y un acabado limpio.</p>
+          <p class="svc-ideal"><strong>Ideal para:</strong> enmarcar la mirada, antes de un evento</p>
+        </div>
+        <div class="svc-card reveal d3">
+          <h3>Micropigmentación de cejas</h3>
+          <p class="svc-desc">Técnica semipermanente que define y rellena la ceja con un acabado natural, pelo a pelo o sombreado, según tu rostro.</p>
+          <p class="svc-ideal"><strong>Ideal para:</strong> cejas con vacíos, ahorrar tiempo cada mañana</p>
+          <span class="svc-note">Previa valoración personalizada.</span>
+        </div>
+        <div class="svc-card reveal d4">
+          <h3>Micropigmentación de labios</h3>
+          <p class="svc-desc">Realce suave del color y del contorno del labio, con tonos elegidos a tu medida para un resultado natural.</p>
+          <p class="svc-ideal"><strong>Ideal para:</strong> labios con poco color o contorno poco definido</p>
+          <span class="svc-note">Previa valoración personalizada.</span>
+        </div>
+        <div class="svc-card reveal d5">
+          <h3>Pestañas pelo a pelo</h3>
+          <p class="svc-desc">Extensión individual, una por una, para una mirada más larga y definida con un efecto elegante y natural.</p>
+          <p class="svc-ideal"><strong>Ideal para:</strong> una mirada con presencia, sin maquillaje</p>
+        </div>
+        <div class="svc-card reveal d6">
+          <h3>Lifting de pestañas</h3>
+          <p class="svc-desc">Curvatura y definición de tus propias pestañas para abrir la mirada. Sin extensiones.</p>
+          <p class="svc-ideal"><strong>Ideal para:</strong> pestañas rectas o cortas, mirada despierta</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider divider-cream"><span>✦</span></div>
+
+  <section id="bienestar" class="svc-section svc-section-dark">
+    <div class="svc-inner">
+      <div class="section-header">
+        <p class="tag reveal">Bienestar</p>
+        <span class="gold-line reveal d1"></span>
+        <h2 class="section-title reveal d2">Equilibra tu <em>energía</em></h2>
+        <p class="section-sub reveal d3">Terapias para sentirte liviana(o) y en calma.</p>
+      </div>
+      <div class="svc-grid two">
+        <div class="svc-card reveal d1">
+          <h3>Drenaje linfático</h3>
+          <p class="svc-desc">Maniobras suaves y rítmicas que estimulan la circulación linfática. Una sensación de ligereza en piernas y cuerpo.</p>
+          <p class="svc-ideal"><strong>Ideal para:</strong> sensación de hinchazón, piernas cansadas, largas jornadas</p>
+        </div>
+        <div class="svc-card reveal d2">
+          <h3>Reflexología</h3>
+          <p class="svc-desc">Presión precisa sobre puntos de los pies que induce una relajación profunda en todo el cuerpo.</p>
+          <p class="svc-ideal"><strong>Ideal para:</strong> estrés, mal descanso, tensión acumulada</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="valoracion" class="svc-section svc-section-wine">
+    <div class="svc-inner">
+      <div class="cta-band">
+        <div class="section-header" style="margin-bottom: 0;">
+          <p class="tag reveal">Valoración personalizada</p>
+          <span class="gold-line reveal d1"></span>
+          <h2 class="section-title reveal d2">Tu sesión, a la medida de <em>tu cuerpo</em></h2>
+          <p class="section-sub reveal d3">Cada persona es distinta, por eso el valor se define según tu caso. Escríbenos y te asesoramos sin compromiso.</p>
+        </div>
+        <a href="https://wa.me/573134590885?text=Hola%20Dorian%20Spa%20%F0%9F%8C%BF%20Quisiera%20una%20valoraci%C3%B3n%20y%20conocer%20el%20valor%20de%20mi%20sesi%C3%B3n." class="btn-primary reveal d4" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="incluye">
+    <div class="incluye-inner">
+      <div class="section-header">
+        <p class="tag reveal">Tu visita incluye</p>
+        <span class="gold-line reveal d1"></span>
+        <h2 class="section-title reveal d2" style="color: var(--white);">Más que un <em>tratamiento</em></h2>
+        <p class="section-sub reveal d3">Cada sesión está pensada como una experiencia completa.</p>
+      </div>
+      <div class="incluye-grid">
+        <div class="incluye-item reveal d1">
+          <span class="incluye-icon">✦</span>
+          <h4>Bebida de bienvenida</h4>
+          <p>Agua, aromática o tinto, a tu elección</p>
+        </div>
+        <div class="incluye-item reveal d2">
+          <span class="incluye-icon">◇</span>
+          <h4>Bata y pantuflas</h4>
+          <p>Para tu comodidad durante toda la visita</p>
+        </div>
+        <div class="incluye-item reveal d3">
+          <span class="incluye-icon">⊙</span>
+          <h4>Zona de relajación</h4>
+          <p>Un espacio para llegar y para irte en calma</p>
+        </div>
+        <div class="incluye-item reveal d4">
+          <span class="incluye-icon">♦</span>
+          <h4>Sin prisa</h4>
+          <p>Ambiente íntimo, sin ruido. Tu tiempo es tuyo</p>
+        </div>
+        <div class="incluye-item reveal d5">
+          <span class="incluye-icon">◈</span>
+          <h4>Atención integral</h4>
+          <p>Masajes, rostro y bienestar en un solo lugar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="politicas">
+    <div class="politicas-inner">
+      <div class="section-header">
+        <p class="tag reveal">Antes de tu cita</p>
+        <span class="gold-line reveal d1"></span>
+        <h2 class="section-title reveal d2" style="color: var(--dark);">Todo lo que debes <em>saber</em></h2>
+      </div>
+      <div class="politicas-grid">
+        <div class="politica-card reveal d1">
+          <h4>¿Cuánto cuesta?</h4>
+          <p>Cada servicio se ajusta a lo que necesitas, por eso no publicamos precios. Por WhatsApp te compartimos el valor de tu sesión, sin compromiso.</p>
+        </div>
+        <div class="politica-card reveal d2">
+          <h4>Horario</h4>
+          <p>Te esperamos de 9:00 am a 6:00 pm. Escríbenos y reservamos el momento que mejor te quede.</p>
+        </div>
+        <div class="politica-card reveal d3">
+          <h4>Dónde estamos</h4>
+          <p>Calle 144 #9-89. Si tienes una condición médica o estás embarazada, cuéntanos tu caso antes de reservar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <div class="testi-inner">
+      <div class="section-header">
+        <p class="tag reveal">Testimonios</p>
+        <span class="gold-line reveal d1"></span>
+        <h2 class="section-title reveal d2" style="color: var(--white);">Lo que dicen <em>nuestros clientes</em></h2>
+        <p class="section-sub reveal d3">La mejor carta de presentación son quienes ya vivieron la experiencia.</p>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card reveal d1">
+          <div class="testi-mark">"</div>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">Llegué con el cuello rígido después de meses frente al computador. Salí del masaje tan relajada que dormí de corrido esa noche, algo que no me pasaba hacía semanas. Ya tengo mi cita del próximo mes.</p>
+          <span class="testi-author">— Andrea M.</span>
+          <p class="testi-service">Masaje de relajación</p>
+        </div>
+        <div class="testi-card reveal d2">
+          <div class="testi-mark">"</div>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">Salgo a correr cinco veces por semana y llegaba con las piernas cargadas. Después del masaje deportivo entrené la semana siguiente sin esa pesadez.</p>
+          <span class="testi-author">— Felipe A.</span>
+          <p class="testi-service">Masaje deportivo</p>
+        </div>
+        <div class="testi-card reveal d3">
+          <div class="testi-mark">"</div>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">Me hice el lifting de pestañas y el diseño de cejas una semana antes de mi boda. En las fotos mi mirada se veía abierta y natural, sin parecer maquillada.</p>
+          <span class="testi-author">— Daniela R.</span>
+          <p class="testi-service">Lifting de pestañas · Diseño de cejas</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider divider-dark"><span>✦</span></div>
+
+  <section id="reservar">
+    <div class="reservar-inner">
+      <p class="tag reveal">Reservas</p>
+      <span class="gold-line reveal d1" style="margin: 12px auto 16px;"></span>
+      <h2 class="section-title reveal d2" style="color: var(--dark);">Tu pausa empieza con <em>un mensaje</em></h2>
+      <p class="section-sub reveal d3">Cuéntanos qué necesitas y agendamos tu cita.</p>
+      <a href="https://wa.me/573134590885?text=Hola%20Dorian%20Spa%20%F0%9F%8C%BF%20Me%20gustar%C3%ADa%20agendar%20una%20cita." class="btn-primary btn-lg reveal d4" target="_blank" rel="noopener">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Agenda tu cita por WhatsApp
+      </a>
+      <p class="micro reveal d5">Horario 9:00 am — 6:00 pm · Calle 144 #9-89<br>Este sitio no usa formularios ni almacena datos personales. La conversación ocurre directamente en WhatsApp.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand reveal">
+        <img src="img/logo-dorian.webp" alt="Dorian Spa Integral by Oniris Dorian" width="150" height="171" loading="lazy" />
+        <p>Masajes, rostro y bienestar en un solo lugar. Cada visita, una pausa que se siente.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/dorian_spa_integral" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/search/top?q=Oniris%20Doria" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col reveal d1">
+        <h5>Servicios</h5>
+        <ul>
+          <li><a href="#masajes">Masajes</a></li>
+          <li><a href="#rostro">Rostro y mirada</a></li>
+          <li><a href="#bienestar">Bienestar</a></li>
+        </ul>
+      </div>
+      <div class="footer-col reveal d2">
+        <h5>Horario</h5>
+        <p>9:00 am — 6:00 pm</p>
+      </div>
+      <div class="footer-col reveal d3">
+        <h5>Contacto</h5>
+        <a href="https://wa.me/573134590885" target="_blank" rel="noopener">+57 313 459 0885</a>
+        <a href="https://instagram.com/dorian_spa_integral" target="_blank" rel="noopener">Instagram · @dorian_spa_integral</a>
+        <a href="https://www.facebook.com/search/top?q=Oniris%20Doria" target="_blank" rel="noopener">Facebook · Oniris Doria</a>
+        <p style="margin-top: 10px;">Calle 144 #9-89</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Dorian Spa Integral · by Oniris Dorian</span>
+      <span>✦</span>
+    </div>
+  </footer>
+
+  <div class="float-social">
+    <a href="https://wa.me/573134590885?text=Hola%20Dorian%20Spa%20%F0%9F%8C%BF%20Me%20gustar%C3%ADa%20agendar%20una%20cita." class="wa" aria-label="WhatsApp" target="_blank" rel="noopener"><svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+    <a href="https://instagram.com/dorian_spa_integral" aria-label="Instagram" target="_blank" rel="noopener"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+    <a href="https://www.facebook.com/search/top?q=Oniris%20Doria" aria-label="Facebook" target="_blank" rel="noopener"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const ham = document.getElementById('hamburger');
+    const links = document.getElementById('navLinks');
+    ham.addEventListener('click', () => links.classList.toggle('open'));
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+    if (window.gsap && !reduce) {
+      gsap.from('.hero-ring', { scale: 0.8, opacity: 0, duration: 1.8, ease: 'power3.out', stagger: 0.25, delay: 0.4 });
+      gsap.from('.hero-anim', { y: 34, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.16, delay: 0.2 });
+      gsap.to('.hero-ring', { rotation: 360, duration: 90, ease: 'none', repeat: -1 });
+      if (window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.to('#heroBg', { yPercent: 10, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
+        gsap.to('.hero-grid', { yPercent: -10, opacity: 0.2, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'center top', end: 'bottom top', scrub: true } });
+      }
+    }
+
+    (function () {
+      const c = document.getElementById('particles');
+      if (!c || reduce) return;
+      const ctx = c.getContext('2d');
+      let w, h, dpr = Math.min(window.devicePixelRatio || 1, 2), ps = [], raf, visible = true;
+      function size() {
+        w = c.clientWidth; h = c.clientHeight;
+        c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const n = w < 768 ? 28 : 60;
+        ps = Array.from({ length: n }, () => ({
+          x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.6 + 0.4,
+          vy: -(Math.random() * 0.25 + 0.05), vx: (Math.random() - 0.5) * 0.12, a: Math.random() * 0.5 + 0.15
+        }));
+      }
+      function tick() {
+        if (visible) {
+          ctx.clearRect(0, 0, w, h);
+          for (const p of ps) {
+            p.x += p.vx; p.y += p.vy;
+            if (p.y < -4) { p.y = h + 4; p.x = Math.random() * w; }
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+            ctx.fillStyle = 'rgba(196,163,90,' + p.a + ')'; ctx.fill();
+          }
+        }
+        raf = requestAnimationFrame(tick);
+      }
+      new IntersectionObserver(e => { visible = e[0].isIntersecting; }).observe(c);
+      window.addEventListener('resize', size);
+      size(); tick();
+    })();
+  </script>
+</body>
+</html>
